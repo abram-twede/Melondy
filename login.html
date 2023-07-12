@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melondy - Login</title>
+  <link
+    rel="shortcut icon"
+    href="{{ url_for('static', filename='icon.png') }}"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+<body>
+  <img src="{{ url_for('static', filename='logo.png') }}" class="icon" />
+  <h1>Welcome to Spotify Playlist Generator</h1>
+  <p>To get started, please log in with your Spotify account.</p>
+  <button onclick="window.location.href='{{ auth_url }}'">Log in with Spotify</button>
+  <button onclick="window.location.href='{{ url_for(\'index\') }}'">Go back</button>
+</body>
+</html

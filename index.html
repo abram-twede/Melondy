@@ -1,21 +1,28 @@
+
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>OpenAI Quickstart</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melondy</title>
   <link
     rel="shortcut icon"
     href="{{ url_for('static', filename='icon.png') }}"
   />
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
-
 <body>
   <img src="{{ url_for('static', filename='logo.png') }}" class="icon" />
   <h3>Melondy</h3>
-  <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter a song" required />
+  <form action="{{ url_for('create_playlist') }}" method="post"></form>
+    <input type="text" name="song" placeholder="Enter a song" required />
     <input type="submit" value="Generate songs" />
   </form>
   {% if result %}
   <div class="result"><pre>{{ result }}</pre></div>
   {% endif %}
+  </body>
+
+  <button onclick="window.location.href='{{ url_for(\'login\') }}'">Log in with Spotify</button>
 </body>
+</html>

@@ -1,10 +1,18 @@
 import os
-
 import openai
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask,request, redirect, session, render_template, request, url_for
+from spotipy import Spotify
+from spotipy.oauth2 import SpotifyOAuth
+
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
+sp_oauth = SpotifyOAuth(
+    client_id='your-spotify-client-id',
+    client_secret='your-spotify-client-secret',
+    redirect_uri=url_for('callback', _external=True),
+    scope='playlist-modify-public user-read-email'
+)
 
 
 @app.route("/", methods=("GET", "POST"))
@@ -23,7 +31,7 @@ def index():
         return redirect(url_for("index", result=result))
 
     result = request.args.get("result")
-    return render_template("index.html", result=result)
+    return render_template('index.html', result=result)
 
 
 def generate_prompt(song):
@@ -31,3 +39,8 @@ def generate_prompt(song):
     print(result)
     return result
 
+@app.route('/login')
+def login():
+    auth_url = sp_oauth.get_authorize_url()
+    # Render the login.html template with auth_url as a parameter
+    return render_template('login.html', auth_url=auth_url)
