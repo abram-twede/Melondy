@@ -18,15 +18,16 @@ def index():
             max_tokens=256
 
         )
-        return redirect(url_for("index", result=response.choices[0].text))
+        result = response.choices[0].text
+        print(result)
+        return redirect(url_for("index", result=result))
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
 
 
 def generate_prompt(song):
-    result = "Suggest 5 songs that are similar to {}. and format response as an html list".format(song.capitalize())
+    result = "Suggest 5 songs that are similar to {}. and add a newline after each item".format(song.capitalize())
     print(result)
     return result
-
 
