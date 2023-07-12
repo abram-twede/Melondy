@@ -30,3 +30,5 @@ def generate_prompt(song):
     result = "Suggest 5 songs that are similar to {}. and format response as an html list".format(song.capitalize())
     print(result)
     return result
+
+
