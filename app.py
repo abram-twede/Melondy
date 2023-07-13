@@ -1,6 +1,12 @@
 import os
 import openai
 from flask import Flask,request, redirect, session, render_template, request, url_for
+
+# import spotipy
+# from spotipy.oauth2 import SpotifyClientCredentials
+
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -17,6 +23,7 @@ sp_oauth = SpotifyOAuth(
 
 @app.route("/", methods=("GET", "POST"))
 def index():
+    sp_test()
     if request.method == "POST":
         song = request.form["animal"]
         response = openai.Completion.create(
@@ -38,6 +45,33 @@ def generate_prompt(song):
     result = "Suggest 5 songs that are similar to {}. and add a newline after each item".format(song.capitalize())
     print(result)
     return result
+
+def sp_test() :
+    # auth_manager = SpotifyClientCredentials()
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+
+    # playlists = sp.user_playlists('spotify')
+
+    auth_manager = SpotifyClientCredentials()
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+
+    playlists = sp.user_playlists('spotify')
+    while playlists:
+        for i, playlist in enumerate(playlists['items']):
+            print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
+        if playlists['next']:
+            playlists = sp.next(playlists)
+        else:
+            playlists = None
+    # urn = 'spotify:artist:3jOstUTkEu2JkjvRdBA5Gu'
+    # auth_manager = SpotifyClientCredentials()
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+    
+    # artist = sp.artist(urn)
+    # print(artist)
+
+    # user = sp.user('plamere')
+    # print(user)
 
 @app.route('/login')
 def login():
