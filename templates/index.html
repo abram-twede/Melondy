@@ -9,9 +9,11 @@
     rel="shortcut icon"
     href="{{ url_for('static', filename='icon.png') }}"
   />
+  
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
 <body>
+  <a href="{{url_for('logout')}}">logout</a>
   <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
   <form action="{{ url_for('create_playlist') }}" method="post">
     <input type="text" name="song" placeholder="Enter a song" required />

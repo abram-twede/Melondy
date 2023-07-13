@@ -1,70 +1,65 @@
-@font-face {
-  font-family: "ColfaxAI";
-  src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2)
-      format("woff2"),
-    url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ColfaxAI";
-  src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"),
-    url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
-  font-weight: bold;
-  font-style: normal;
-}
 body,
 input {
   font-size: 16px;
   line-height: 24px;
   color: #353740;
   font-family: "ColfaxAI", Helvetica, sans-serif;
+  background-color: #f0ecec; /* Light melon interior color */
 }
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 60px;
-}
-.icon {
-  width: px;
-}
-h3 {
-  font-size: 32px;
-  line-height: 40px;
-  font-weight: bold;
+
+h1 {
   color: #202123;
-  margin: 16px 0 40px;
+  font-weight: bold;
 }
+
 form {
   display: flex;
   flex-direction: column;
   width: 320px;
+  background-color: #ea355c; /* Red watermelon color */
+  padding: 20px;
+  border-radius: 15px;
 }
+
 input[type="text"] {
   padding: 12px 16px;
-  border: 1px solid #10a37f;
-  border-radius: 4px;
+  border: 2px solid #353740;
+  border-radius: 7px;
   margin-bottom: 24px;
 }
+
 ::placeholder {
-  color: #8e8ea0;
-  opacity: 1;
+  color: #353740;
+  opacity: 50;
 }
+
 input[type="submit"] {
   padding: 12px 0;
   color: #fff;
-  background-color: #10a37f;
+  background-color: #32b44a; /* Green watermelon color */
   border: none;
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
 }
+
 .result {
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
-  /* make it so make text can fit  */
   width : 50%;
-
+  color: #ea355c; /* Red watermelon color */
 }
+
+button {
+  padding: 12px 0;
+  color: #fff;
+  background-color: #32b44a; /* Green watermelon color */
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  width: 200px; /* Adjust as needed */
+  margin: 20px auto; /* Centers the button */
+}
+

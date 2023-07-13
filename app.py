@@ -28,20 +28,20 @@ def login():
             auth_url = sp_oauth.get_authorize_url()
             return render_template('login.html', auth_url=auth_url)  
 
-@app.route('/callback')
-def callback():
-    sp_oauth = create_spotify_oauth()
-    session.clear()
-    code = request.args.get('code')
-    token_info = sp_oauth.get_access_token(code=code)
-    session["token_info"] = token_info
-    return redirect(url_for('create_playlist'))
+# @app.route('/callback')
+# def callback():
+#     sp_oauth = create_spotify_oauth()
+#     session.clear()
+#     code = request.args.get('code')
+#     token_info = sp_oauth.get_access_token(code=code)
+#     session["token_info"] = token_info
+#     return redirect(url_for('create_playlist'))
 
 @app.route('/create_playlist', methods=['GET', 'POST'])
 def create_playlist():
-    if 'token_info' not in session:
-        return redirect(url_for('login'))  
-
+    spotify = get_spotify()
+    currentuser = spotify.current_user()
+    print( "user " + str(currentuser))
     if request.method == 'POST':
         song = request.form.get('song')
         response = openai.Completion.create(
@@ -78,3 +78,41 @@ def generate_prompt(song):
 if __name__ == "__main__":
     with app.app_context():  # Creating application context
         app.run(debug=True)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+# @app.route('/playlists')
+# def playlists():
+##     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         return redirect('/')
+
+#     spotify = spotipy.Spotify(auth_manager=auth_manager)
+#     return spotify.current_user_playlists()
+
+# @app.route('/current_user')
+# def current_user():
+#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         return redirect('/')
+#     spotify = spotipy.Spotify(auth_manager=auth_manager)
+#     return spotify.current_user()
+
+def get_spotify():
+    sp_oauth = create_spotify_oauth()
+    
+    if not sp_oauth.validate_token(session.get('token_info')):
+        print("token.valid is false")
+        logout()
+    else:
+        return spotipy.Spotify(auth_manager=sp_oauth)
+    
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
