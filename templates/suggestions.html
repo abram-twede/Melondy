@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melondy</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='icon.png') }}"
-  />
-  
+  <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
 <body>
@@ -16,29 +12,23 @@
   <a href="{{url_for('about')}}">about</a>
   <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
 
-    {% if suggestions %}
-    <div class="suggestions">
-        <h2> Suggestions to add to {{playlist}}</h2>
-        <form  action="{{url_for('suggestions')}}" method="post">
-
-
-        
-    <ul>
-      {%for suggestion in suggestions%}
+  {% if suggestions %}
+  <div class="suggestions">
+    <h2> Suggestions to add to {{playlist}}</h2>
+    <form  action="{{url_for('suggestions')}}" method="post">
+      <ul>
+        {%for suggestion in suggestions%}
         <li>
-          <input type="checkbox" name="selection" id="{{suggestion}}"/> {{suggestion}} 
-          
+          <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
+          {{ suggestion }} 
         </li>
-
-      {%endfor%}
-    </ul>
-    <input type="submit" value="Add to playlist" />
-    <input type="hidden" id="playlist_uri" value="{{playlist_uri}}" />
-    <input type="hidden" id="playlist" value="{{playlist}}" />
-</form>
-    </div>
-    {%endif%}
-
-  </body>
-
+        {%endfor%}
+      </ul>
+      <input type="submit" value="Add to playlist" />
+      <input type="hidden" name="playlist_uri" value="{{playlist_uri}}" />
+      <input type="hidden" name="playlist" value="{{playlist}}" />
+    </form>
+  </div>
+  {%endif%}
+</body>
 </html>
