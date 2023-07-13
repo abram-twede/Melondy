@@ -63,3 +63,7 @@ button {
   margin: 20px auto; /* Centers the button */
 }
 
+.openspotify-image {
+  width: 30px;
+  height: 30px;
+}

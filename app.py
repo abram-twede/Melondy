@@ -116,3 +116,26 @@ def get_spotify():
 def logout():
     session.clear()
     return redirect(url_for('login'))
+
+# get  user playlists
+@app.route('/playlists')
+def playlists():
+    spotify = get_spotify()
+    return render_template('index.html', playlists=spotify.current_user_playlists())
+
+@app.route('/suggestions')
+def suggestions():
+    spotify = get_spotify()
+    playlist_uri = request.args.get('playlist_uri')
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=generate_suggestions(playlist_uri),
+        temperature=0.6,
+        max_tokens=256
+    )
+
+    result = response.choices[0].text
+    print(result)
+    return render_template('index.html', result=result)
+def generate_suggestions(playlist_uri):
+    return "Suggest 5 songs that are similar to {}. and add a newline after each item".format(playlist_uri.capitalize())
