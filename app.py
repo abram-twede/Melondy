@@ -127,15 +127,27 @@ def playlists():
 def suggestions():
     spotify = get_spotify()
     playlist_uri = request.args.get('playlist_uri')
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=generate_suggestions(playlist_uri),
-        temperature=0.6,
+    results = spotify.playlist_items(playlist_uri)
+    songs = ""
+    for item in results['items']:
+        track = item['track']['name']
+        songs += track + "\n"
+
+    prompt = generate_suggestions(songs)
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": generate_suggestions(songs)}
+        ],
+        temperature=1,
         max_tokens=256
     )
+    #parse response to get 5 songs
+    suggestions = response['choices'][0]['message']['content'].split('\n')[:5]
+    print(suggestions)
+    return render_template('suggestions.html', suggestions=suggestions)
 
-    result = response.choices[0].text
-    print(result)
-    return render_template('index.html', result=result)
-def generate_suggestions(playlist_uri):
-    return "based on the playlist given create  {}. and add a newline after each item".format(playlist_uri.capitalize())
+def generate_suggestions(songs):
+    prompt = "based on the songs given provide a list of 5 new songs with artists that fit the same style and genre and add a newline after each item: {} . only respond with the songs".format(songs)
+    return prompt

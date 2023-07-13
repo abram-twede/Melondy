@@ -15,21 +15,6 @@
   <a href="{{url_for('logout')}}">logout</a>
   <a href="{{url_for('about')}}">about</a>
   <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
-    {% if playlists %}
-    <div class="playlists">
-    <ul>
-      {%for playlist in playlists['items']%}
-        <li>
-          <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}">{{playlist['name']}}</a>
-          <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
-            <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
-          </a>
-          
-        </li>
-      {%endfor%}
-    </ul>
-    </div>
-    {%endif%}
 
     {% if suggestions %}
     <div class="suggestions">
@@ -46,28 +31,3 @@
   </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
