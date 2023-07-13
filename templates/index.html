@@ -14,7 +14,7 @@
 <body>
   <img src="{{ url_for('static', filename='logo.png') }}" class="icon" />
   <h3>Melondy</h3>
-  <form action="{{ url_for('create_playlist') }}" method="post"></form>
+  <form action="{{ url_for('create_playlist') }}" method="post">
     <input type="text" name="song" placeholder="Enter a song" required />
     <input type="submit" value="Generate songs" />
   </form>
@@ -23,6 +23,4 @@
   {% endif %}
   </body>
 
-  <button onclick="window.location.href='{{ url_for(\'login\') }}'">Log in with Spotify</button>
-</body>
 </html>
