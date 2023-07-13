@@ -18,16 +18,27 @@
 
     {% if suggestions %}
     <div class="suggestions">
+        <h2> Suggestions to add to {{playlist}}</h2>
+        <form  action="{{url_for('suggestions')}}" method="post">
+
+
+        
     <ul>
       {%for suggestion in suggestions%}
         <li>
-          {{suggestion}}
+          <input type="checkbox" name="selection" id="{{suggestion}}"/> {{suggestion}} 
           
         </li>
+
       {%endfor%}
     </ul>
+    <input type="submit" value="Add to playlist" />
+    <input type="hidden" id="playlist_uri" value="{{playlist_uri}}" />
+    <input type="hidden" id="playlist" value="{{playlist}}" />
+</form>
     </div>
     {%endif%}
+
   </body>
 
 </html>

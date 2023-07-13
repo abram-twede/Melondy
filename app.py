@@ -123,10 +123,23 @@ def playlists():
     spotify = get_spotify()
     return render_template('playlists.html', playlists=spotify.current_user_playlists())
 
-@app.route('/suggestions')
+@app.route('/suggestions',methods=['GET', 'POST'])
 def suggestions():
+    
     spotify = get_spotify()
-    playlist_uri = request.args.get('playlist_uri')
+    if request.method == 'POST':
+        playlist_uri = request.form.get('playlist_uri')
+        playlist = request.form.get('playlist')
+        print(playlist_uri)
+        print(playlist)
+
+        #get the input from the checkbox
+        for song in request.form.getlist('selection'):
+            print(song)
+    else: 
+        playlist_uri = request.args.get('playlist_uri')
+        playlist = request.args.get('playlist')
+
     results = spotify.playlist_items(playlist_uri)
     songs = ""
     for item in results['items']:
@@ -146,8 +159,8 @@ def suggestions():
     #parse response to get 5 songs
     suggestions = response['choices'][0]['message']['content'].split('\n')[:5]
     print(suggestions)
-    return render_template('suggestions.html', suggestions=suggestions)
+    return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist)
 
 def generate_suggestions(songs):
-    prompt = "based on the songs given provide a list of 5 new songs with artists that fit the same style and genre and add a newline after each item: {} . only respond with the songs".format(songs)
+    prompt = "Only respond with songs - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre and add a newline after each item: {} . only respond with the songs".format(songs)
     return prompt
