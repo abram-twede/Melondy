@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,17 +14,47 @@
 <body>
   <a href="{{url_for('logout')}}">logout</a>
   <a href="{{url_for('about')}}">about</a>
-  <a href="{{url_for('playlists')}}">create a playlist</a>
   <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
-  <form action="{{ url_for('create_playlist') }}" method="post">
-    <input type="text" name="song" placeholder="Enter a song" required />
-    <input type="submit" value="Generate songs" />
-  </form>
-  {% if result %}
-  
-  <div class="result"><pre>{{ result }}</pre></div>
-  {% endif %}
-
+    {% if playlists %}
+    <div class="playlists">
+    <ul>
+      {%for playlist in playlists['items']%}
+        <li>
+          <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}">{{playlist['name']}}</a>
+          <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
+            <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
+          </a>
+          
+        </li>
+      {%endfor%}
+    </ul>
+    </div>
+    {%endif%}
   </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

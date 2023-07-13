@@ -121,7 +121,7 @@ def logout():
 @app.route('/playlists')
 def playlists():
     spotify = get_spotify()
-    return render_template('index.html', playlists=spotify.current_user_playlists())
+    return render_template('playlists.html', playlists=spotify.current_user_playlists())
 
 @app.route('/suggestions')
 def suggestions():
@@ -138,4 +138,4 @@ def suggestions():
     print(result)
     return render_template('index.html', result=result)
 def generate_suggestions(playlist_uri):
-    return "Suggest 5 songs that are similar to {}. and add a newline after each item".format(playlist_uri.capitalize())
+    return "based on the playlist given create  {}. and add a newline after each item".format(playlist_uri.capitalize())
