@@ -62,7 +62,7 @@ input[type="submit"] {
 }
 .result {
   font-weight: bold;
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
   /* make it so make text can fit  */
   width : 50%;
