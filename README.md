@@ -1,5 +1,7 @@
 ![Words](https://github.com/ajtwede/Melondy/assets/69599409/6095598d-10a2-4b82-9c7c-f15ec7b5d0a1)
-#MELONDY
+
+
+##MELONDY
 This is a python app that uses open ai api and spotify api. It also uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Follow the instructions below to get set up.
 
 ## Setup
