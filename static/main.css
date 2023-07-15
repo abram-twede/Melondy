@@ -10,9 +10,29 @@ input {
 }
 
 h1 {
+  margin-left: 120px;
+  margin-right: 120px;
   color: #202123;
   font-weight: bold;
+
+  text-align: left;
+
 }
+h2{
+  margin-left: 120px;
+  margin-right: 120px;
+
+}
+p{
+  margin-left: 120px;
+  margin-right: 120px;
+  color: #202123;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  
+}
+
 
 form {
   display: flex;
@@ -24,6 +44,7 @@ form {
 }
 
 input[type="text"] {
+  
   padding: 12px 16px;
   border: 2px solid #32b44a; /* Green watermelon color */
   border-radius: 7px;
@@ -113,6 +134,7 @@ button {
   color : #ea355c; /* Red watermelon color */
 }
 
+/* This is for the basic chat access on the homepage */
 .basic{
   margin-top: -10px;
   margin-bottom: 50px;
@@ -124,4 +146,31 @@ button {
 
   font-weight: bold;
   font-size: 20px;
+}
+
+.playlists{
+  margin-top: -10px;
+  margin-bottom: 50px;
+  margin-left: 120px;
+  margin-right: 120px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ea355c; /* Red watermelon color */
+  font-weight: bold;
+  font-size: 20px;
+}
+.individual-playlist{
+  margin-top: -10px;
+  margin-bottom: 50px;
+  margin-left: 120px;
+  margin-right: 120px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #000000; /* Red watermelon color */
+  font-weight: bold;
+  font-size: 20px;
+}
+.suggestions{
+  margin-left: 120px;
+  margin-right: 120px;
 }

@@ -12,19 +12,25 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
 <body>
-  <a href="{{url_for('home')}}">home</a>
-  <a href="{{url_for('logout')}}">logout</a>
-  <a href="{{url_for('about')}}">about</a>
-  <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
+  <div class="menu">
+    <ul>
+    <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
+    <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
+    <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
+    <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
+  </ul>
+  </div>
     {% if playlists %}
     <div class="playlists">
     <ul>
       {%for playlist in playlists['items']%}
         <li>
+          <div class="individual-playlist">
           <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
           <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
             <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
           </a>
+          </div>
           
         </li>
       {%endfor%}
