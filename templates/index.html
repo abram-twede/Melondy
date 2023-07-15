@@ -12,21 +12,27 @@
   
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
-<body>
-  
-  <a href="{{url_for('logout')}}">logout</a>
-  <a href="{{url_for('about')}}">about</a>
-  <a href="{{url_for('playlists')}}">create a playlist</a>
-  <img src="{{ url_for('static', filename='Words.png') }}" class="icon" />
-  <form action="{{ url_for('create_playlist') }}" method="post">
+  <body>
+      <div class="menu">
+        <ul>
+        <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
+        <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
+        <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
+      </ul>
+      </div>
+    
+
+  <div class="basic">
+  <form action="{{ url_for('home') }}" method="post" >
     <input type="text" name="song" placeholder="Enter a song" required />
     <input type="submit" value="Generate songs" />
   </form>
   {% if result %}
-  
+
   <div class="result"><pre>{{ result }}</pre></div>
   {% endif %}
-
+  </div>
   </body>
 
 </html>

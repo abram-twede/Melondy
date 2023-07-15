@@ -16,20 +16,20 @@ def create_spotify_oauth():
 @app.route('/')
 def login():
     if 'token_info' in session:
-        return redirect(url_for('create_playlist')) 
+        return redirect(url_for('home')) 
     else:
         sp_oauth = create_spotify_oauth()
         code = request.args.get('code')
         if code:
             token_info = sp_oauth.get_access_token(code=code)
             session["token_info"] = token_info
-            return redirect(url_for('create_playlist'))
+            return redirect(url_for('home'))
         else:
             auth_url = sp_oauth.get_authorize_url()
             return render_template('login.html', auth_url=auth_url)  
 
-@app.route('/create_playlist', methods=['GET', 'POST'])
-def create_playlist():
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     spotify = get_spotify()
     currentuser = spotify.current_user()
     print( "user " + str(currentuser))
@@ -43,7 +43,7 @@ def create_playlist():
         )
         result = response.choices[0].text.strip()
         print(result)
-        return redirect(url_for("create_playlist", result=result))
+        return redirect(url_for("home", result=result))
     result = request.args.get("result")
     return render_template('index.html', result=result)  
 
@@ -132,7 +132,7 @@ def suggestions():
 
 
 def generate_suggestions(songs):
-    prompt = "Only respond with songs - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre and add a newline after each item: {} . only respond with the songs".format(songs)
+    prompt = "Only respond with songs - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
     return prompt
 
 if __name__ == "__main__":

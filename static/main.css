@@ -25,9 +25,10 @@ form {
 
 input[type="text"] {
   padding: 12px 16px;
-  border: 2px solid #353740;
+  border: 2px solid #32b44a; /* Green watermelon color */
   border-radius: 7px;
   margin-bottom: 24px;
+ 
 }
 
 ::placeholder {
@@ -41,16 +42,22 @@ input[type="submit"] {
   background-color: #32b44a; /* Green watermelon color */
   border: none;
   border-radius: 4px;
-  text-align: center;
   cursor: pointer;
+  text-align: center;
 }
 
 .result {
   font-weight: bold;
   margin-top: 10px;
-  text-align: center;
-  width : 50%;
-  color: #ea355c; /* Red watermelon color */
+  text-align: left;
+  color: #000000;
+  background-color: #f0ecec; /* Light melon interior color */
+  padding: 10px;
+  margin-left : 20px;
+  border-radius: 7px;
+  margin-bottom: 24px;
+  width: auto;
+  margin-right: 20px;
 }
 
 button {
@@ -61,10 +68,60 @@ button {
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
-  width: 200px; /* Adjust as needed */
+  width: 200px; 
   margin: 20px auto; /* Centers the button */
 }
 
 .openspotify-image {
   width: 20px;
+}
+
+
+.menu ul{
+
+  display : inline-flex;
+  margin: 50px;
+  /* make the links not look like links */
+  text-decoration : none;
+  /* remove the default underline */
+  color : #fff;
+  /* remove the default blue color */
+  font-weight : bold;
+  /* add a little padding to the links */
+
+
+
+
+ 
+}
+.menu ul li{
+  text-decoration : none;
+  list-style : none;
+  margin : 0 20px;
+  color : #fff;
+  font-weight : bold;
+  cursor : pointer;
+  font-weight : bold;
+
+}
+.icon{
+  width : 200px;
+  margin-top: -40px;
+  margin-right : 48px;
+}
+.active{
+  color : #ea355c; /* Red watermelon color */
+}
+
+.basic{
+  margin-top: -10px;
+  margin-bottom: 50px;
+  margin-left: 120px;
+  margin-right: 120px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ea355c; /* Red watermelon color */
+
+  font-weight: bold;
+  font-size: 20px;
 }
