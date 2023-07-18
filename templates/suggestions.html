@@ -27,6 +27,10 @@
         <li>
           <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
           {{ suggestion }} 
+    
+          <a href="{{suggestion.spotify_link}}" target="_blank">
+            <img src="{{url_for('static', filename='openspotify.png')}}" class="openspotify-image">
+          </a>
         </li>
         {%endfor%}
       </ul>
