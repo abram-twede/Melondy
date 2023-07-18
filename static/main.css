@@ -35,12 +35,14 @@ p{
 
 
 form {
+  margin-left: 120px;
+  margin-right: 120px;
   display: flex;
   flex-direction: column;
-  width: 320px;
   background-color: #ea355c; /* Red watermelon color */
   padding: 20px;
   border-radius: 15px;
+
 }
 
 input[type="text"] {
@@ -49,6 +51,7 @@ input[type="text"] {
   border: 2px solid #32b44a; /* Green watermelon color */
   border-radius: 7px;
   margin-bottom: 24px;
+  
  
 }
 
@@ -65,6 +68,9 @@ input[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
+}
+input[type="submit"]:hover {
+  background-color: #39d255; /* Light green watermelon color */
 }
 
 .result {
@@ -105,7 +111,7 @@ button {
   /* make the links not look like links */
   text-decoration : none;
   /* remove the default underline */
-  color : #fff;
+  color : #000000;
   /* remove the default blue color */
   font-weight : bold;
   /* add a little padding to the links */
@@ -119,7 +125,7 @@ button {
   text-decoration : none;
   list-style : none;
   margin : 0 20px;
-  color : #fff;
+  color : #000000;
   font-weight : bold;
   cursor : pointer;
   font-weight : bold;
@@ -136,10 +142,10 @@ button {
 
 /* This is for the basic chat access on the homepage */
 .basic{
-  margin-top: -10px;
-  margin-bottom: 50px;
   margin-left: 120px;
   margin-right: 120px;
+  margin-top: -10px;
+  margin-bottom: 50px;
   padding: 20px;
   border-radius: 15px;
   background-color: #ea355c; /* Red watermelon color */
@@ -151,8 +157,7 @@ button {
 .playlists{
   margin-top: -10px;
   margin-bottom: 50px;
-  margin-left: 120px;
-  margin-right: 120px;
+
   padding: 20px;
   border-radius: 15px;
   background-color: #ea355c; /* Red watermelon color */
@@ -160,17 +165,21 @@ button {
   font-size: 20px;
 }
 .individual-playlist{
+  background-color: #000000; 
   margin-top: -10px;
   margin-bottom: 50px;
-  margin-left: 120px;
-  margin-right: 120px;
   padding: 20px;
   border-radius: 15px;
-  background-color: #000000; /* Red watermelon color */
   font-weight: bold;
   font-size: 20px;
+  border-color: #39d255;
+  border-style: solid;
+  border-width: 3px;
 }
-.suggestions{
-  margin-left: 120px;
-  margin-right: 120px;
+
+a{
+  color: #39d255;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
 }

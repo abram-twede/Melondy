@@ -20,13 +20,22 @@
     <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
   </ul>
   </div>
+  <div class="banner">
+    <div class="banner-text">
+    <h1>Your Spotify Playlists</h1>
+    <h2>Click one that you want suggestions for</h2>
+    </div>
+  </div>
     {% if playlists %}
-    <div class="playlists">
+    <div class="basic">
     <ul>
       {%for playlist in playlists['items']%}
         <li>
           <div class="individual-playlist">
-          <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
+          
+              <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
+   
+          
           <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
             <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
           </a>

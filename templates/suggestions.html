@@ -20,6 +20,7 @@
   {% if suggestions %}
   <div class="suggestions">
     <h2> Suggestions to add to {{playlist}}</h2>
+  </div class = suggestions-face>
     <form  action="{{url_for('suggestions')}}" method="post">
       <ul>
         {%for suggestion in suggestions%}
