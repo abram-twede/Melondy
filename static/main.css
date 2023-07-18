@@ -155,6 +155,7 @@ button {
 }
 
 .playlists{
+  list-style: none;
   margin-top: -10px;
   margin-bottom: 50px;
 
@@ -165,6 +166,9 @@ button {
   font-size: 20px;
 }
 .individual-playlist{
+  /* make it clickable */
+  cursor: pointer;
+
   background-color: #000000; 
   margin-top: -10px;
   margin-bottom: 50px;

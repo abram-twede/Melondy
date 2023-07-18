@@ -30,18 +30,15 @@
     <div class="basic">
     <ul>
       {%for playlist in playlists['items']%}
-        <li>
+
           <div class="individual-playlist">
           
-              <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
-   
-          
+            <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
           <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
             <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
           </a>
           </div>
-          
-        </li>
+
       {%endfor%}
     </ul>
     </div>
