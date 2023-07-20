@@ -1,26 +1,10 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Melondy</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='icon.png') }}"
-  />
-  
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-</head>
-  <body>
-      <div class="menu">
-        <ul>
-        <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
-        <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
-        <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
-        <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
-      </ul>
-      </div>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
     <div class="banner">
       <div class="banner-text">
       <h1>Welcome to Melondy</h1>
@@ -30,14 +14,21 @@
 
   <div class="basic">
   <form action="{{ url_for('home') }}" method="post" >
-    <input type="text" name="song" placeholder="Enter a song" required />
+    <input type="text" name="song" placeholder="Enter songs (i.e Wheels on the buss, The duck song)" required />
     <input type="submit" value="Generate songs" />
   </form>
-  {% if result %}
 
-  <div class="result"><pre>{{ result }}</pre></div>
-  {% endif %}
-  </div>
-  </body>
+  {% if suggestions %}
+<div class="suggestions">
 
-</html>
+  <ul >
+  {%for suggestion in suggestions%}
+    <li>
+      {{suggestion}}
+    </li>
+  {%endfor%}
+
+</ul>
+</div>
+{%endif%}
+{% endblock %}

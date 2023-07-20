@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <div class="menu">
-    <ul>
-    <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
-    <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
-    <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
-    <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
-  </ul>
-  </div>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Melondy - About</title>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
   <h1>About Melondy</h1>
   <p>Here at Melondy, we use the power of artificial intelligence to help you discover new music based on your preferences. By combining the capabilities of OpenAI's GPT and Spotify's API, we provide you with personalized song recommendations and allow you to create playlists that align with your musical taste.</p>
-</body>
-</html>
+
+  {% endblock %}

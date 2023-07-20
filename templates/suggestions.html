@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Melondy</title>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-</head>
-<body>
-  <div class="menu">
-    <ul>
-    <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
-    <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
-    <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
-    <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
-  </ul>
-  </div>
+{% extends 'base.html' %}
+
+{% block title %}Suggestions{% endblock %}
+
+{% block content %}
+
 
   {% if suggestions %}
   <div class="suggestions">
@@ -24,11 +12,12 @@
     <form  action="{{url_for('suggestions')}}" method="post">
       <ul>
         {%for suggestion in suggestions%}
+
         <li>
           <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
           {{ suggestion }} 
     
-          <a href="{{suggestion.spotify_link}}" target="_blank">
+            <a href="{{suggestion.spotify_link}}" target="_blank">
             <img src="{{url_for('static', filename='openspotify.png')}}" class="openspotify-image">
           </a>
         </li>
@@ -40,5 +29,5 @@
     </form>
   </div>
   {%endif%}
-</body>
-</html>
+
+{% endblock %}

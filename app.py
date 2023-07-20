@@ -13,39 +13,36 @@ def create_spotify_oauth():
         scope='playlist-modify-public user-read-email user-read-playback-state user-modify-playback-state'
     )
 
-@app.route('/')
+@app.route('/login')
 def login():
     if 'token_info' in session:
+        print("one:",token_info)
         return redirect(url_for('home')) 
+        
     else:
         sp_oauth = create_spotify_oauth()
         code = request.args.get('code')
         if code:
             token_info = sp_oauth.get_access_token(code=code)
             session["token_info"] = token_info
+            print("two:",token_info)
             return redirect(url_for('home'))
         else:
             auth_url = sp_oauth.get_authorize_url()
-            return render_template('login.html', auth_url=auth_url)  
+            print("three:",auth_url)
+            return redirect(auth_url, code=302)
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    spotify = get_spotify()
-    currentuser = spotify.current_user()
-    print( "user " + str(currentuser))
+    # spotify = get_spotify()
+    # currentuser = spotify.current_user()
+    suggestions = []
+
     if request.method == 'POST':
         song = request.form.get('song')
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=generate_prompt(song),
-            temperature=0.6,
-            max_tokens=256
-        )
-        result = response.choices[0].text.strip()
-        print(result)
-        return redirect(url_for("home", result=result))
-    result = request.args.get("result")
-    return render_template('index.html', result=result)  
+        suggestions = generate_suggestions(song)
+
+    return render_template('index.html', suggestions=suggestions)  
 
 def generate_prompt(song):
     return "Suggest 5 songs that are similar to {}. and add a newline after each item".format(song.capitalize())
@@ -72,7 +69,7 @@ def get_spotify():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/playlists')
 def playlists():
@@ -115,25 +112,25 @@ def suggestions():
     for item in results['items']:
         track = item['track']['name']
         songs += track + "\n"
+    suggestions = generate_suggestions(songs)
 
-    prompt = generate_suggestions(songs)
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": generate_suggestions(songs)}
-        ],
-        temperature=1,
-        max_tokens=256
-    )
-
-    suggestions = response['choices'][0]['message']['content'].split('\n')[:5]
     return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist)
 
 
 def generate_suggestions(songs):
-    prompt = "Only respond with songs - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
-    return prompt
+    prompt = "Only respond with songs and artists - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
+    response = openai.ChatCompletion.create(
+        
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=1,
+        max_tokens=256
+    )
+    suggestions = response['choices'][0]['message']['content'].split('\n')[:5]
+    return suggestions
 
 if __name__ == "__main__":
     with app.app_context():  # Creating application context

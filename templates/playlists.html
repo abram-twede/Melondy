@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Melondy</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='icon.png') }}"
-  />
-  
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-</head>
-<body>
-  <div class="menu">
-    <ul>
-    <li><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></li>
-    <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
-    <li class = "active"><a href="{{ url_for('playlists') }}">Create Playlist</a></li>
-    <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
-  </ul>
-  </div>
+{% extends 'base.html' %}
+
+{% block title %}Playlists{% endblock %}
+
+{% block content %}
   <div class="banner">
     <div class="banner-text">
     <h1>Your Spotify Playlists</h1>
@@ -30,15 +13,20 @@
     <div class="basic">
     <ul>
       {%for playlist in playlists['items']%}
-
+      <li>
+      <div class="spotify-link">
+        <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
+          <img src="{{url_for('static', filename='newtab.png')}}" class=openspotify-image > 
+        </a>
+      </div>
+      <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">
           <div class="individual-playlist">
-          
-            <a href="{{url_for('suggestions')}}?playlist_uri={{playlist['uri']}}&playlist={{playlist['name']}}">{{playlist['name']}}</a>
-          <a href="{{playlist['external_urls']['spotify']}}" target="_blank"> 
-            <img src="{{url_for('static', filename='openspotify.png')}}"class=openspotify-image > 
-          </a>
+            
+            {{playlist['name']}}
           </div>
-
+        </a>
+        
+      </li>
       {%endfor%}
     </ul>
     </div>
@@ -56,9 +44,7 @@
     </ul>
     </div>
     {%endif%}
-  </body>
-
-</html>
+{% endblock %}
 
 
 
