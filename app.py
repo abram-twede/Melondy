@@ -3,6 +3,8 @@ import spotipy
 import openai
 import os
 from spotipy.oauth2 import SpotifyOAuth
+import json
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv('APP_CLIENT_SECRET')
@@ -79,14 +81,15 @@ def playlists():
 @app.route('/suggestions',methods=['GET', 'POST'])
 def suggestions():
     spotify = get_spotify()
+    
     if spotify is None: 
-        print("Spotify is none")
+ 
         return redirect(url_for('login'))
     current_user = spotify.current_user()
+    playlist_uri = request.args.get('playlist_uri')
+    playlist = request.args.get('playlist')
     if request.method == 'POST':
-        playlist_uri = request.form.get('playlist_uri')
-        playlist = request.form.get('playlist')
-
+        
         # Collect the selected songs
         selected_songs = request.form.getlist('selection')
 
@@ -103,10 +106,7 @@ def suggestions():
         else:
             print("No songs selected")
 
-    else: 
-        playlist_uri = request.args.get('playlist_uri')
-        playlist = request.args.get('playlist')
-
+        
     results = spotify.playlist_items(playlist_uri)
     songs = ""
     for item in results['items']:
@@ -114,6 +114,16 @@ def suggestions():
         songs += track + "\n"
     suggestions = generate_suggestions(songs)
 
+    for suggestion in suggestions:
+        print("suggestion:"+suggestion)
+        # track = suggestion.split(' - ')[0]
+        # artist = suggestion.split(' - ')[1]
+        results = spotify.search(q=suggestion,limit=1, type='track')
+        print("results:",results)
+        if results['tracks']['items']:
+                song_uri = (results['tracks']['items'][0]['uri'])
+                print("song_uri:",song_uri)
+    
     return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist)
 
 
@@ -130,6 +140,11 @@ def generate_suggestions(songs):
         max_tokens=256
     )
     suggestions = response['choices'][0]['message']['content'].split('\n')[:5]
+
+    
+
+        
+
     return suggestions
 
 if __name__ == "__main__":

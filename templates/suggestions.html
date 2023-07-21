@@ -8,17 +8,22 @@
   {% if suggestions %}
   <div class="suggestions">
     <h2> Suggestions to add to {{playlist}}</h2>
-  </div class = suggestions-face>
     <form  action="{{url_for('suggestions')}}" method="post">
       <ul>
         {%for suggestion in suggestions%}
 
         <li>
-          <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
-          {{ suggestion }} 
+            <!-- .squaredOne -->
+            <div id="bruh" class="squaredOne">
+              <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
+              <label for="squaredOne">{{ suggestion }}</label>
+            </div>
+            <!-- end .squaredOne -->
+
+           
     
             <a href="{{suggestion.spotify_link}}" target="_blank">
-            <img src="{{url_for('static', filename='openspotify.png')}}" class="openspotify-image">
+            <img src="{{url_for('static', filename='newSpotify.png')}}" class="openspotify-image">
           </a>
         </li>
         {%endfor%}
