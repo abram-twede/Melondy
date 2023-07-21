@@ -3,7 +3,6 @@ import spotipy
 import openai
 import os
 from spotipy.oauth2 import SpotifyOAuth
-import json
 
 
 app = Flask(__name__)

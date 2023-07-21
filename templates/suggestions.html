@@ -13,17 +13,15 @@
         {%for suggestion in suggestions%}
 
         <li>
-            <!-- .squaredOne -->
-            <div id="bruh" class="squaredOne">
-              <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}"/>
-              <label for="squaredOne">{{ suggestion }}</label>
-            </div>
-            <!-- end .squaredOne -->
-
-           
-    
+          <!-- .squaredOne -->
+          <div class="squaredOne">
+            <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}" />
+            <label for="{{ suggestion }}"></label>
+          </div>
+          <!-- end .squaredOne -->
+          {{ suggestion }}
             <a href="{{suggestion.spotify_link}}" target="_blank">
-            <img src="{{url_for('static', filename='newSpotify.png')}}" class="openspotify-image">
+            <img src="{{url_for('static', filename='newspotify.png')}}" class="openspotify-image">
           </a>
         </li>
         {%endfor%}
