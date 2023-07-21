@@ -3,6 +3,7 @@ import spotipy
 import openai
 import os
 from spotipy.oauth2 import SpotifyOAuth
+import json
 
 
 app = Flask(__name__)
@@ -119,6 +120,7 @@ def suggestions():
         # artist = suggestion.split(' - ')[1]
         results = spotify.search(q=suggestion,limit=1, type='track')
         print("results:",results)
+        print("json:",json.dumps(results, indent=4, sort_keys=True))
         if results['tracks']['items']:
                 song_uri = (results['tracks']['items'][0]['uri'])
                 print("song_uri:",song_uri)
