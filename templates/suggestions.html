@@ -15,12 +15,14 @@
         <li>
           <!-- .squaredOne -->
           <div class="squaredOne">
-            <input type="checkbox" name="selection" id="{{ suggestion }}" value="{{ suggestion }}" />
-            <label for="{{ suggestion }}"></label>
+            <input type="checkbox" name="selection" id="{{ suggestion['uri'] }}" value="{{ suggestion['uri'] }}" />
+            <label for="{{ suggestion['uri'] }}"></label>
           </div>
           <!-- end .squaredOne -->
-          {{ suggestion }}
-            <a href="{{suggestion.spotify_link}}" target="_blank">
+          {{ suggestion['track'] }} 
+          
+          {% if suggestion['artist'] %} - {{ suggestion['artist'] }}{%endif%}
+            <a href="{{suggestion['url']}}" target="_blank">
             <img src="{{url_for('static', filename='newspotify.png')}}" class="openspotify-image">
           </a>
         </li>

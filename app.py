@@ -81,55 +81,77 @@ def playlists():
 @app.route('/suggestions',methods=['GET', 'POST'])
 def suggestions():
     spotify = get_spotify()
-    
     if spotify is None: 
- 
         return redirect(url_for('login'))
-    current_user = spotify.current_user()
+    
+    
     playlist_uri = request.args.get('playlist_uri')
+    
     playlist = request.args.get('playlist')
     if request.method == 'POST':
         
         # Collect the selected songs
-        selected_songs = request.form.getlist('selection')
-
+        selected_uris = request.form.getlist('selection')
+        playlist_uri = request.form.get('playlist_uri')
+        playlist = request.form.get('playlist')
+        print("playlist_uri:",playlist_uri)
         # Convert song names to URIs
-        song_uris = []
-        for song in selected_songs:
-            result = spotify.search(q='track:' + song, type='track')
-            if result['tracks']['items']:
-                song_uris.append(result['tracks']['items'][0]['uri'])
-
+        # song_uris = []
+        # for song in selected_uris:
+        #     result = spotify.search(q='track:' + song, type='track')
+        #     if result['tracks']['items']:
+        #         song_uris.append(result['tracks']['items'][0]['uri'])
+        
         # Add songs to playlist
-        if song_uris:
-            spotify.user_playlist_add_tracks(current_user['id'], playlist_uri.split(':')[2], song_uris)
+        if selected_uris:
+            current_user = spotify.current_user()
+            spotify.user_playlist_add_tracks(current_user['id'], playlist_uri.split(':')[2], selected_uris)
         else:
             print("No songs selected")
 
         
-    results = spotify.playlist_items(playlist_uri)
+    SpotifyResults = spotify.playlist_items(playlist_uri)
     songs = ""
-    for item in results['items']:
+    for item in SpotifyResults['items']:
         track = item['track']['name']
         songs += track + "\n"
-    suggestions = generate_suggestions(songs)
+    GPTresults = generate_suggestions(songs)
 
-    for suggestion in suggestions:
-        print("suggestion:"+suggestion)
-        # track = suggestion.split(' - ')[0]
-        # artist = suggestion.split(' - ')[1]
-        results = spotify.search(q=suggestion,limit=1, type='track')
-        print("results:",results)
-        print("json:",json.dumps(results, indent=4, sort_keys=True))
-        if results['tracks']['items']:
-                song_uri = (results['tracks']['items'][0]['uri'])
+    suggestions = []
+
+    for GPTresult in GPTresults:
+        suggestion = {}
+
+        data = GPTresult.split(' - ')
+
+        track = data[0]
+        suggestion['track'] = track
+        query = "track:" + track 
+        if len(data) > 1:
+            artist = data[1]
+            suggestion['artist'] = artist
+            query += " artist:" + artist
+            
+       
+        SpotifyResults = spotify.search(q=query,limit=1, type='track', market='US')
+        
+        if SpotifyResults['tracks']['items']:
+                song_uri = (SpotifyResults['tracks']['items'][0]['uri'])
                 print("song_uri:",song_uri)
-    
+                suggestion['uri'] = song_uri
+                song_url= (SpotifyResults['tracks']['items'][0]['external_urls']['spotify'])
+                print("song_url:",song_url)
+                suggestion['url'] = song_url
+
+        suggestions.append(suggestion)
+        
+
+
     return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist)
 
 
 def generate_suggestions(songs):
-    prompt = "Only respond with songs and artists - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
+    prompt = "Respond with song and artist (for example: 'Radioactive - Imagine Dragons') - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
     response = openai.ChatCompletion.create(
         
         model="gpt-3.5-turbo",
