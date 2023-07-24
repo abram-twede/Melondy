@@ -9,12 +9,13 @@
       <div class="banner-text">
       <h1>Welcome to Melondy</h1>
       <h2>Generate songs based on your favorite music </h2>
+      
       </div>
     </div>
 
   <div class="basic">
   <form action="{{ url_for('home') }}" method="post" >
-    <input type="text" name="song" placeholder="Enter songs (i.e Wheels on the buss, The duck song)" required />
+    <input type="text" name="song" placeholder="Enter song/s (i.e Wheels on the buss) (enter artist for more accuracy)" required />
     <input type="submit" value="Generate songs" />
   </form>
 
@@ -29,6 +30,13 @@
   {%endfor%}
 
 </ul>
+
+
 </div>
+
+
+
+  </div>
 {%endif%}
 {% endblock %}
+

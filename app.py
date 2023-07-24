@@ -151,12 +151,12 @@ def suggestions():
 
 
 def generate_suggestions(songs):
-    prompt = "Respond with song and artist (for example: 'Radioactive - Imagine Dragons') - based on the songs given provide a list of 5 new songs with artists that fit the same style and genre do not repeat songs that are given and add a newline after each item: {} . only respond with the songs".format(songs)
+    prompt = "Based on the songs/song given provide a list of 5 new songs with artists that fit the same style and genre as the songs given. Do not repeat any songs that are given:. Respond with song - artist (for example: 'Radioactive - Imagine Dragons    Counting Stars - OneRepublic     Where is my Mind - Pixies    Heat Waves - Glass Animals    Chlorine - Twenty One Pilots ') Here are the songs to base your recomendations off of: {} ".format(songs)
     response = openai.ChatCompletion.create(
         
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You only give lists of songs - artists. Do not give any suggestions of songs that are already given to you. You do not say anything else but the songs and artists. Do not say anything about being a language model or anything but the song then the artist, dont recommend songs you already have recommended."},
             {"role": "user", "content": prompt}
         ],
         temperature=1,
@@ -173,4 +173,3 @@ def generate_suggestions(songs):
 if __name__ == "__main__":
     with app.app_context():  # Creating application context
         app.run(debug=True)
-

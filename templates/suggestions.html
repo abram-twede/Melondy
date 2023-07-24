@@ -28,7 +28,8 @@
         </li>
         {%endfor%}
       </ul>
-      <input type="submit" value="Add to playlist" />
+      <p id='add' style='display: none'>Songs added!</p> 
+      <input type="submit" onclick="toggleText()" value="Add to playlist" />
       <input type="hidden" name="playlist_uri" value="{{playlist_uri}}" />
       <input type="hidden" name="playlist" value="{{playlist}}" />
     </form>

@@ -20,10 +20,12 @@
        <li class = "active"><a href="{{ url_for('playlists') }}">Playlists</a></li>
       <li><a href="{{ url_for('logout') }}">Log Out</a>
     {% else %}
-      <li><a href="{{ url_for('login') }}">Log In</a>
+      <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='LogSpot.png') }}" class="LogSpot"/> </a>
     {% endif %}
+    <li><a href="{{ 'https://github.com/ajtwede/Melondy' }}"><img src="{{ url_for('static', filename='GitMelon.png') }}" class="Github" /></a></li>
+      
       </ul>
-      </div>
+    </div> 
       {%block content%}{%endblock%}
   </body>
 
