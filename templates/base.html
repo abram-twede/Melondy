@@ -16,6 +16,7 @@
         <ul>
         <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='Words.png') }}" class="icon" /></a></li>
         <li class = "active"><a href="{{ url_for('about') }}">About</a></li>
+        <li class = "active"><a href="{{ url_for('analysis') }}">Analysis</a></li>
         {% if session["token_info"] %}
        <li class = "active"><a href="{{ url_for('playlists') }}">Playlists</a></li>
       <li><a href="{{ url_for('logout') }}">Log Out</a>
@@ -23,7 +24,7 @@
       <li><a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='LogSpot.png') }}" class="LogSpot"/> </a>
     {% endif %}
     <li><a href="{{ 'https://github.com/ajtwede/Melondy' }}"><img src="{{ url_for('static', filename='GitMelon.png') }}" class="Github" /></a></li>
-      
+   
       </ul>
     </div> 
       {%block content%}{%endblock%}

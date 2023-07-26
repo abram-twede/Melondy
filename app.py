@@ -46,6 +46,13 @@ def home():
 
     return render_template('index.html', suggestions=suggestions)  
 
+@app.route('/analysis')
+def analysis():
+
+    return render_template('analysis.html')
+
+
+
 def generate_prompt(song):
     return "Suggest 5 songs that are similar to {}. and add a newline after each item".format(song.capitalize())
 
