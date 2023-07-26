@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Song Analysis{% endblock %}
+
+{% block content %}
+
+    <div class="banner">
+      <div class="banner-text">
+      <h1>Song Analysis</h1>
+      <h2>Generate a song analysis of your favorite song</h2>
+      
+      </div>
+    </div>
+
+  <div class="basic">
+  <form action="{{ url_for('home') }}" method="post" >
+    <input type="text" name="song" placeholder="Enter song/s (i.e Wheels on the buss) (enter artist for more accuracy)" required />
+    <input type="submit" value="Generate songs" />
+  </form>
+
+  {% if suggestions %}
+<div class="suggestions">
+
+  <ul >
+  {%for suggestion in suggestions%}
+    <li>
+      {{suggestion}}
+    </li>
+  {%endfor%}
+
+</ul>
+
+
+</div>
+
+
+
+  </div>
+{%endif%}
+{% endblock %}
+
