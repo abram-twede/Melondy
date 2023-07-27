@@ -9,6 +9,9 @@
   <div class="suggestions">
     <h2> Suggestions to add to {{playlist}}</h2>
     <form  action="{{url_for('suggestions')}}" method="post">
+      {% if notify %}
+      <p id='add'>{{notify}}</p> 
+      {%endif%}
       <ul>
         {%for suggestion in suggestions%}
 
@@ -28,7 +31,7 @@
         </li>
         {%endfor%}
       </ul>
-      <p id='add' style='display: none'>Songs added!</p> 
+      
       <input type="submit" onclick="toggleText()" value="Add to playlist" />
       <input type="hidden" name="playlist_uri" value="{{playlist_uri}}" />
       <input type="hidden" name="playlist" value="{{playlist}}" />

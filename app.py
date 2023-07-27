@@ -84,6 +84,8 @@ def suggestions():
     if spotify is None: 
         return redirect(url_for('login'))
     
+    notify = None
+
     
     playlist_uri = request.args.get('playlist_uri')
     
@@ -106,8 +108,9 @@ def suggestions():
         if selected_uris:
             current_user = spotify.current_user()
             spotify.user_playlist_add_tracks(current_user['id'], playlist_uri.split(':')[2], selected_uris)
+            notify = "Added {} songs to {}".format(len(selected_uris), playlist)
         else:
-            print("No songs selected")
+            notify = "No songs selected"
 
         
     SpotifyResults = spotify.playlist_items(playlist_uri)
@@ -147,7 +150,7 @@ def suggestions():
         
 
 
-    return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist)
+    return render_template('suggestions.html', suggestions=suggestions, playlist_uri=playlist_uri, playlist = playlist, notify=notify)
 
 
 def generate_suggestions(songs):
