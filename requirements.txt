@@ -24,3 +24,4 @@ tqdm==4.62.3
 urllib3==1.26.7
 Werkzeug==2.0.2
 spotipy==2.22.1
+gunicorn==21.2.0
