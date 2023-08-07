@@ -13,7 +13,7 @@ This is a python app that uses open ai api and spotify api. It also uses the [Fl
 3. Navigate into the project directory:
 
    ```bash
-   $ cd openai-quickstart-python
+   $ cd - Melondy
    ```
 
 4. Create a new virtual environment:
